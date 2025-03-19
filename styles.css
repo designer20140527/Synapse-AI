@@ -1,0 +1,1938 @@
+:root {
+    --primary-color: #FF3366;
+    --secondary-color: #6C2BD9;
+    --bg-color: #07041A;
+    --text-color: #FFFFFF;
+    --max-width: 1300px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 添加 Sora 字体 */
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&display=swap');
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Sora', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 95%;
+    margin: 0 auto;
+    padding: 0;
+    position: relative;
+}
+
+/* 导航栏样式 */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2.5vw;
+    position: fixed;
+    background-color: var(--bg-color);
+    z-index: 100;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    backdrop-filter: blur(10px);
+    animation: fadeInDown 0.8s ease forwards;
+    opacity: 0;
+}
+
+/* 更新导航栏边框样式 */
+nav::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 添加 logo 文字样式 */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.logo img {
+    height: 40px;
+}
+
+.nav-links {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* 按钮样式 */
+.nav-buttons {
+    display: flex;
+    align-items: center;
+}
+
+/* 按钮基础样式 */
+.btn-primary, .btn-explore {
+    font-family: 'Sora', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 1.2rem 2.2rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+}
+
+/* LAUNCH APP 按钮样式 */
+.btn-primary-wrapper {
+    background: linear-gradient(135deg,
+        var(--primary-color) 0%,
+        var(--primary-color) 35%,
+        rgba(7, 159, 255, 0.8) 42%,
+        rgba(7, 159, 255, 0.9) 48%,
+        rgba(7, 159, 255, 0.8) 52%,
+        var(--secondary-color) 65%,
+        var(--secondary-color) 100%
+    );
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    padding: 1px;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 0.9rem 1.6rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+/* EXPLORE NOW 按钮样式 */
+.btn-explore {
+    background: white;
+    color: var(--bg-color);
+    padding: 0.9rem 1.6rem;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 2rem;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-explore:hover {
+    color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* 装饰线样式 */
+.highlight {
+    position: relative;
+    display: inline-block;
+}
+
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: linear-gradient(90deg, 
+        var(--primary-color),
+        #079fff,
+        var(--secondary-color)
+    );
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 6'%3E%3Cpath d='M0 3C50 -0.5 150 -0.5 200 3' fill='black'/%3E%3C/svg%3E") no-repeat;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 6'%3E%3Cpath d='M0 3C50 -0.5 150 -0.5 200 3' fill='black'/%3E%3C/svg%3E") no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+}
+
+/* 主要内容样式 */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 6rem 0 8rem 0;
+    width: 100%;
+    min-height: calc(95vh - 80px);
+    position: relative;
+    margin-top: 80px; /* 根据导航栏高度调整 */
+}
+
+.hero-content {
+    width: 100%;
+}
+
+h1 {
+    font-size: 4rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* 更新 hero 内容样式 */
+.hero-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 950px;
+    margin: 0 auto;
+}
+
+/* 图片容器样式 */
+.hero-image {
+    margin-top: 4rem;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.image-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    position: relative;
+    border-radius: 20px;
+    overflow: visible;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 1px;
+}
+
+.gradient-border {
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, 
+        var(--primary-color) 0%,
+        var(--primary-color) 30%,
+        #079fff 50%,
+        var(--secondary-color) 70%,
+        var(--secondary-color) 100%
+    );
+    z-index: 0; /* 降低渐变边框的层级 */
+}
+
+.gradient-border::after {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: var(--bg-color);
+    border-radius: 18px;
+}
+
+.image-container img {
+    position: relative;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    object-fit: cover;
+    border-radius: 18px;
+    z-index: 1;
+    margin: 1px;
+    display: block;
+}
+
+/* 恢复底部装饰层 */
+.image-container::before,
+.image-container::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    background: #141425;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* 窄的装饰层（在下面） */
+.image-container::before {
+    width: 92%;
+    height: 50px;
+    bottom: -40px;
+    z-index: -2;
+}
+
+/* 宽的装饰层（在上面） */
+.image-container::after {
+    width: 96%;
+    height: 50px;
+    bottom: -20px;
+    z-index: -1;
+}
+
+/* 添加背景装饰 */
+main::before {
+    content: '';
+    position: absolute;
+    top: -150px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1200px;
+    height: 1000px;
+    background: radial-gradient(
+        circle at center,
+        rgba(7, 159, 255, 0.15) 0%,
+        rgba(7, 4, 26, 0.1) 35%,
+        transparent 90%
+    );
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* 调整 hero-frame 样式 */
+.hero-frame {
+    position: absolute;
+    width: 95vw;
+    height: calc(95vh + 1rem); /* 确保高度延伸到 main 底部 */
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.hero-frame::before,
+.hero-frame::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 水平线 */
+.hero-frame::before {
+    width: 100%;
+    height: 1px;
+    top: 0;
+    left: 0;
+}
+
+.hero-frame::after {
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+}
+
+/* 垂直线 */
+.frame-vertical {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.frame-vertical.left {
+    left: 0;
+}
+
+.frame-vertical.right {
+    right: 0;
+}
+
+/* 添加加号装饰 */
+.frame-plus {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.frame-plus::before,
+.frame-plus::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.frame-plus::before {
+    width: 20px;
+    height: 1px;
+    top: 50%;
+    left: 0;
+}
+
+.frame-plus::after {
+    width: 1px;
+    height: 20px;
+    left: 50%;
+    top: 0;
+}
+
+/* 四个角的加号位置 */
+.frame-plus.top-left {
+    top: -10px;
+    left: -10px;
+}
+
+.frame-plus.top-right {
+    top: -10px;
+    right: -10px;
+}
+
+/* 恢复底部加号 */
+.frame-plus.bottom-left {
+    bottom: -10px;
+    left: -10px;
+}
+
+.frame-plus.bottom-right {
+    bottom: -10px;
+    right: -10px;
+}
+
+/* 特性部分样式 */
+.features {
+    padding: 4rem 0;
+    width: 100%;
+    position: relative;
+}
+
+.features-slider {
+    width: 95%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    position: relative;
+    min-height: 500px; /* 减小最小高度 */
+    padding-bottom: 0; /* 移除底部padding */
+}
+
+.slide {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: flex-start; /* 改为顶部对齐 */
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    pointer-events: all; /* 恢复活动 slide 的交互 */
+}
+
+.slide-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 8rem; /* 增加上方间距 */
+}
+
+.slide-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.slide-header .subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg,
+        var(--primary-color) 0%,
+        var(--primary-color) 35%,
+        rgba(7, 159, 255, 0.9) 50%,
+        var(--secondary-color) 65%,
+        var(--secondary-color) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.slide-header h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0;
+}
+
+.slide-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 0; /* 移除底部margin */
+}
+
+/* 导航按钮样式 */
+.slider-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-arrow {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.nav-arrow:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* 禁用状态的按钮样式 */
+.nav-arrow.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* 图片容器专用样式 */
+.slide-image {
+    width: 160%; /* 进一步增大宽度 */
+    margin-left: -30%; /* 调整偏移以保持居中 */
+    aspect-ratio: 16/9;
+    border-radius: 20px;
+    overflow: hidden;
+    background: transparent;
+}
+
+.slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 改为 contain 以完整显示图片 */
+}
+
+/* 新增 Innovation 部分样式 */
+.innovation {
+    padding: 4rem 0;
+    width: 95%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+}
+
+.innovation-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 20px;
+    background: transparent; /* 移除背景色 */
+    position: relative;
+}
+
+.innovation-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.innovation-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.innovation-header .subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg,
+        var(--primary-color) 0%,
+        var(--primary-color) 35%,
+        rgba(7, 159, 255, 0.9) 50%,
+        var(--secondary-color) 65%,
+        var(--secondary-color) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.innovation-header h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0;
+}
+
+.innovation-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1rem 0 2rem;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* 调整按钮宽度 */
+.innovation .btn-primary-wrapper {
+    width: fit-content; /* 限制按钮宽度 */
+}
+
+/* 调整 content-frame 的位置 */
+.content-frame {
+    position: absolute;
+    width: 95vw;
+    height: 100%;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* 调整 features-innovation-wrapper 的位置 */
+.features-innovation-wrapper {
+    position: relative;
+    margin-top: 0;
+}
+
+/* 内容装饰框只需要垂直线和底部横线 */
+.content-frame::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.content-frame .frame-vertical {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.content-frame .frame-vertical.left {
+    left: 0;
+}
+
+.content-frame .frame-vertical.right {
+    right: 0;
+}
+
+/* 内容装饰框只需要底部加号 */
+.content-frame .frame-plus {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+}
+
+.content-frame .frame-plus::before,
+.content-frame .frame-plus::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.content-frame .frame-plus::before {
+    width: 20px;
+    height: 1px;
+    top: 50%;
+    left: 0;
+}
+
+.content-frame .frame-plus::after {
+    width: 1px;
+    height: 20px;
+    left: 50%;
+    top: 0;
+}
+
+.content-frame .frame-plus.bottom-left {
+    bottom: -10px;
+}
+
+/* Tokenomics 部分样式 */
+.tokenomics {
+    padding: 6rem 0;
+    width: 95%;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: visible; /* 改为 visible 允许光晕显示 */
+}
+
+.tokenomics-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 居中标题 */
+    margin-bottom: 4rem;
+}
+
+.tokenomics-header h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0;
+}
+
+.token-info {
+    display: flex;
+    justify-content: center; /* 改为居中对齐 */
+    gap: 8rem; /* 添加固定的间距 */
+    width: 100%;
+}
+
+.token-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 200px; /* 可选：添加最小宽度确保内容不会挤压 */
+}
+
+.token-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.token-details .label {
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg,
+        var(--primary-color) 0%,
+        var(--primary-color) 35%,
+        rgba(7, 159, 255, 0.9) 50%,
+        var(--secondary-color) 65%,
+        var(--secondary-color) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.token-details .value {
+    font-size: 2.5rem; /* 增大数值的字体大小 */
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* 移除不需要的样式 */
+.token-icon {
+    display: none;
+}
+
+/* Roadmap 部分样式 */
+.roadmap {
+    padding: 6rem 0;
+    width: 95%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    position: relative;
+    overflow: visible; /* 改为 visible 允许光晕显示 */
+}
+
+.roadmap-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.roadmap-header h2 {
+    font-size: 2.8rem;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.roadmap-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.roadmap-card-wrapper {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 1px;
+    border-radius: 20px;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    height: 100%; /* 确保包装器占满高度 */
+}
+
+.roadmap-card {
+    background: var(--bg-color);
+    padding: 3rem 2rem; /* 增加上下内边距 */
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+    height: 100%; /* 确保卡片占满包装器高度 */
+}
+
+.roadmap-card:hover {
+    background: var(--bg-color); /* 恢复默认背景色 */
+}
+
+.card-number {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1.5rem;
+}
+
+.card-content h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.card-content h4 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-content p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* 调整分隔装饰框样式 */
+.section-divider {
+    position: relative;
+    width: 95vw;
+    margin: 3rem auto; /* 添加上下间距 */
+}
+
+.section-divider .frame-horizontal {
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.section-divider .frame-plus {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: -10px;
+}
+
+.section-divider .frame-plus.left {
+    left: 2.5vw; /* 调整到横竖线交叉处 */
+}
+
+.section-divider .frame-plus.right {
+    right: 2.5vw; /* 调整到横竖线交叉处 */
+}
+
+/* 添加 tokenomics 和 roadmap 之间的装饰框 */
+.tokenomics-roadmap-frame {
+    position: absolute;
+    width: 95vw;
+    height: 1px; /* 只需要横线高度 */
+    top: auto;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.tokenomics-roadmap-frame .frame-horizontal {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    bottom: 0;
+}
+
+.tokenomics-roadmap-frame .frame-plus {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: -10px;
+}
+
+.tokenomics-roadmap-frame .frame-plus::before,
+.tokenomics-roadmap-frame .frame-plus::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.tokenomics-roadmap-frame .frame-plus::before {
+    width: 20px;
+    height: 1px;
+    top: 50%;
+    left: 0;
+}
+
+.tokenomics-roadmap-frame .frame-plus::after {
+    width: 1px;
+    height: 20px;
+    left: 50%;
+    top: 0;
+}
+
+.tokenomics-roadmap-frame .frame-plus.bottom-left {
+    left: -10px;
+}
+
+.tokenomics-roadmap-frame .frame-plus.bottom-right {
+    right: -10px;
+}
+
+/* 添加 section 之间的装饰框 */
+.section-frame {
+    position: relative;
+    width: 95vw;
+    margin: 0 auto;
+    height: 1px;
+}
+
+.section-frame .frame-horizontal {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* 复用现有的 frame-plus 样式 */
+
+/* CTA 部分样式 */
+.cta {
+    padding: 8rem 0;
+    width: 95%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* 隐藏超出部分 */
+}
+
+.cta-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.cta-content h2 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    font-weight: 600;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* 复用 highlight 样式，但调整位置 */
+.cta-content .highlight::after {
+    bottom: -5px;
+    height: 12px;
+}
+
+/* 复用 btn-explore 样式，但调整宽度 */
+.cta-content .btn-explore {
+    min-width: 200px;
+}
+
+/* 调整 roadmap 和 cta 之间的装饰框 */
+.roadmap-cta-frame {
+    position: relative;
+    width: 95vw;
+    margin: 0 auto;
+    height: 1px;
+}
+
+.roadmap-cta-frame .frame-horizontal {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.roadmap-cta-frame .frame-plus {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    bottom: -10px;
+}
+
+.roadmap-cta-frame .frame-plus::before,
+.roadmap-cta-frame .frame-plus::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.roadmap-cta-frame .frame-plus::before {
+    width: 20px;
+    height: 1px;
+    top: 50%;
+    left: 0;
+}
+
+.roadmap-cta-frame .frame-plus::after {
+    width: 1px;
+    height: 20px;
+    left: 50%;
+    top: 0;
+}
+
+.roadmap-cta-frame .frame-plus.bottom-left {
+    left: -10px;
+}
+
+.roadmap-cta-frame .frame-plus.bottom-right {
+    right: -10px;
+}
+
+/* 添加 cta 和 footer 之间的装饰框 */
+.cta-footer-frame {
+    position: relative;
+    width: 95vw;
+    margin: 0 auto;
+    height: 1px;
+}
+
+/* 复用相同的装饰框样式 */
+.cta-footer-frame .frame-horizontal,
+.cta-footer-frame .frame-plus,
+.cta-footer-frame .frame-plus::before,
+.cta-footer-frame .frame-plus::after {
+    /* 与 roadmap-cta-frame 相同的样式 */
+}
+
+/* Footer 样式 */
+footer {
+    padding: 4rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-content {
+    width: 95%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-logo img {
+    height: 40px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer-links a:hover {
+    opacity: 1;
+}
+
+.footer-copyright {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* 添加 footer 社交媒体图标样式 */
+.footer-social {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+.footer-social .social-icon {
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.footer-social .social-icon:hover {
+    transform: translateY(-2px);
+}
+
+/* Hero section 样式 */
+.hero-overlay {
+    position: absolute;
+    top: 2%; /* 稍微下移一点点 */
+    left: 50%; /* 水平居中 */
+    transform: translateX(-50%); /* 确保完全居中 */
+    width: 50%;
+    height: 100%;
+    background-image: url('assets/images/overlay.png');
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: 90% auto;
+    opacity: 0.7;
+    z-index: -2; /* 将 overlay 的层级调低，确保在光晕下面 */
+}
+
+/* 修改 social card 样式 */
+.social-card {
+    position: absolute;
+    left: 23%;
+    top: 70%;
+    transform: translate3d(0, -50%, 0);
+    background: rgba(20, 20, 40, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem 2.2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    animation: none; /* 移除 fadeInUp 动画 */
+    opacity: 1; /* 改为可见 */
+    will-change: transform;
+    transition: transform 0.3s ease;
+}
+
+/* 滚动时的位置变化 */
+.container.is-scrolling .social-card {
+    transform: translate3d(0, -65%, 0);
+}
+
+/* 修改 social icon hover 效果 */
+.social-card .social-icon {
+    transition: transform 0.3s ease;
+}
+
+.social-card .social-icon:hover {
+    transform: scale(1.15);
+}
+
+/* 添加 header 动画 */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) translateX(-50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) translateX(-50%);
+    }
+}
+
+nav {
+    animation: fadeInDown 0.8s ease forwards;
+    opacity: 0;
+}
+
+/* 调整右下角光晕 */
+main::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: -2.5vw;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(
+        circle at bottom right,
+        rgba(108, 43, 217, 0.12),
+        rgba(108, 43, 217, 0.08) 25%,
+        rgba(108, 43, 217, 0.05) 45%,
+        rgba(7, 4, 26, 0.02) 65%,
+        transparent 85%
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* 添加 header button hover 效果 */
+.btn-primary:hover {
+    color: var(--secondary-color);
+    transition: color 0.3s ease;
+}
+
+/* 添加 hero button hover 效果 */
+.btn-explore:hover {
+    color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* 添加 hero 部分动效 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.hero-content h1 {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.hero-content p {
+    animation: fadeInUp 0.8s ease 0.2s forwards;
+    opacity: 0; /* 初始透明 */
+}
+
+.hero-content .btn-explore {
+    animation: fadeInUp 0.8s ease 0.4s forwards;
+    opacity: 0; /* 初始透明 */
+}
+
+.hero-image {
+    animation: fadeInRight 1s ease 0.6s forwards;
+    opacity: 0; /* 初始透明 */
+}
+
+.social-card {
+    animation: none; /* 移除 fadeInUp 动画 */
+    opacity: 1; /* 改为可见 */
+}
+
+/* Orbiting Circles 基础样式 */
+.orbit-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+/* 中心 logo */
+.orbit-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background-image: url('assets/images/logo-transparent.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;
+}
+
+/* 轨道样式 */
+.inner-orbit,
+.outer-orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.inner-orbit {
+    width: 320px;
+    height: 320px;
+    animation: rotateInner 25s linear infinite;
+}
+
+.outer-orbit {
+    width: 520px;
+    height: 520px;
+    animation: rotateOuter 35s linear infinite;
+}
+
+/* icon 基础样式 */
+.orbit-icon {
+    position: absolute;
+    border-radius: 50%;
+    background: #FFFFFF;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 内圈 icon */
+.inner-orbit .orbit-icon {
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -18px 0 0 -18px; /* 居中校正 */
+}
+
+.inner-orbit .orbit-icon img {
+    width: 20px;
+    height: 20px;
+}
+
+/* 外圈 icon */
+.outer-orbit .orbit-icon {
+    width: 44px;
+    height: 44px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -22px 0 0 -22px; /* 居中校正 */
+}
+
+.outer-orbit .orbit-icon img {
+    width: 24px;
+    height: 24px;
+}
+
+/* 内圈 icon 位置 */
+.inner-orbit .orbit-icon:nth-child(1) { transform: rotate(0deg) translateY(-160px); }
+.inner-orbit .orbit-icon:nth-child(2) { transform: rotate(90deg) translateY(-160px); }
+.inner-orbit .orbit-icon:nth-child(3) { transform: rotate(180deg) translateY(-160px); }
+.inner-orbit .orbit-icon:nth-child(4) { transform: rotate(270deg) translateY(-160px); }
+
+/* 外圈 icon 位置 */
+.outer-orbit .orbit-icon:nth-child(1) { transform: rotate(0deg) translateY(-260px); }
+.outer-orbit .orbit-icon:nth-child(2) { transform: rotate(72deg) translateY(-260px); }
+.outer-orbit .orbit-icon:nth-child(3) { transform: rotate(144deg) translateY(-260px); }
+.outer-orbit .orbit-icon:nth-child(4) { transform: rotate(216deg) translateY(-260px); }
+.outer-orbit .orbit-icon:nth-child(5) { transform: rotate(288deg) translateY(-260px); }
+
+/* 轨道旋转动画 */
+@keyframes rotateInner {
+    from { transform: translate(-50%, -50%) rotate(360deg); }
+    to { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+@keyframes rotateOuter {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Tokenomics 和 Roadmap 的动画效果 */
+.tokenomics-card,
+.roadmap-card {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.tokenomics-card::before,
+.roadmap-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(
+        circle at center,
+        rgba(108, 43, 217, 0.1),
+        transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.tokenomics-card:hover,
+.roadmap-card:hover {
+    transform: translateY(-5px);
+}
+
+.tokenomics-card:hover::before,
+.roadmap-card:hover::before {
+    opacity: 1;
+}
+
+/* 添加区块光晕效果 */
+.tokenomics::before,
+.roadmap::before,
+.cta::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.tokenomics::before {
+    content: '';
+    position: absolute;
+    width: 1200px; /* 增大宽度 */
+    height: 1200px; /* 增大高度 */
+    top: 50%;
+    left: -400px;
+    background: radial-gradient(
+        circle at center,
+        rgba(255, 51, 102, 0.15),
+        rgba(255, 51, 102, 0.1) 30%,
+        rgba(255, 51, 102, 0.05) 50%,
+        rgba(7, 4, 26, 0) 70%
+    );
+    transform: translateY(-50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.roadmap::before {
+    content: '';
+    position: absolute;
+    width: 1200px; /* 增大宽度 */
+    height: 1200px; /* 增大高度 */
+    top: 50%;
+    right: -400px;
+    background: radial-gradient(
+        circle at center,
+        rgba(108, 43, 217, 0.15),
+        rgba(108, 43, 217, 0.1) 30%,
+        rgba(108, 43, 217, 0.05) 50%,
+        rgba(7, 4, 26, 0) 70%
+    );
+    transform: translateY(-50%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.cta::before {
+    content: '';
+    position: absolute;
+    width: 800px;
+    height: 800px;
+    top: 50%;
+    left: 50%;
+    background: radial-gradient(
+        circle at center,
+        rgba(7, 159, 255, 0.15),
+        rgba(7, 159, 255, 0.1) 30%,
+        rgba(7, 159, 255, 0.05) 50%,
+        rgba(7, 4, 26, 0) 70%
+    );
+    transform: translate(-50%, -50%);
+    z-index: -2; /* 降低光晕的层级 */
+    pointer-events: none;
+}
+
+/* 添加卡片进入动画 */
+@keyframes cardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tokenomics-card,
+.roadmap-card {
+    opacity: 0;
+}
+
+/* 使用 JavaScript 添加动画类 */
+.tokenomics-card.animate,
+.roadmap-card.animate {
+    animation: cardFadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* CTA 部分的背景圆圈 */
+.cta {
+    position: relative;
+    overflow: visible; /* 改为 visible 以显示完整圆圈 */
+}
+
+/* 添加背景圆圈容器 */
+.cta::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 800px;
+    transform: translate(-50%, -50%);
+    z-index: -2;
+}
+
+/* 创建四个同心圆 */
+.cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    z-index: -1;
+}
+
+@keyframes rotateCircles {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 调整圆圈样式 */
+.cta .circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: -1;
+    transform: translate(-50%, -50%);
+}
+
+/* 调整每个圆圈的大小和动画 */
+.cta .circle:nth-child(1) {
+    width: 200px;
+    height: 200px;
+    animation: rotateCircles 35s linear infinite;
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+.cta .circle:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    animation: rotateCircles 45s linear infinite reverse;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.cta .circle:nth-child(3) {
+    width: 600px;
+    height: 600px;
+    animation: rotateCircles 55s linear infinite;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.cta .circle:nth-child(4) {
+    width: 800px;
+    height: 800px;
+    animation: rotateCircles 65s linear infinite reverse;
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* 修改旋转动画，保持圆心位置不变 */
+@keyframes rotateCircles {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 添加平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* iPad 端样式调整 */
+@media (max-width: 1024px) {
+    /* 调整导航按钮与上方内容的间距 */
+    .slider-nav {
+        margin-top: 4rem; /* 增加与上方内容的间距 */
+    }
+
+    /* 确保按钮对齐 */
+    .nav-arrow {
+        margin: 0;
+        position: static;
+        transform: none;
+    }
+
+    /* 其他 iPad 样式保持不变... */
+}
+
+/* 手机端样式调整 */
+@media (max-width: 768px) {
+    /* 隐藏 header */
+    nav {
+        display: none;
+    }
+
+    /* 修复导航按钮对齐 */
+    .slider-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        height: 40px; /* 固定容器高度 */
+    }
+
+    .nav-arrow {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+        position: static;
+        transform: none;
+    }
+
+    /* 移除所有可能影响按钮对齐的样式 */
+    .nav-arrow.prev,
+    .nav-arrow.next {
+        margin: 0;
+        padding: 0;
+        position: static;
+        transform: none;
+    }
+
+    /* Slide 部分修复 */
+    .slide {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        padding: 1rem;
+    }
+
+    .slide-content {
+        width: 100%;
+        text-align: center;
+        padding-top: 2rem;
+    }
+
+    .slide-image {
+        width: 100%;
+        margin: 2rem 0 0 0;
+    }
+
+    /* Tokenomics 部分改为单列 */
+    .token-info {
+        flex-direction: column;
+        gap: 3rem;
+        align-items: center;
+    }
+
+    .token-card {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    /* 调整字体大小 */
+    h1 {
+        font-size: 2.2rem; /* 减小 */
+    }
+
+    h2 {
+        font-size: 1.8rem; /* 减小 */
+    }
+
+    h3 {
+        font-size: 1.4rem; /* 减小 */
+    }
+
+    h4 {
+        font-size: 1.2rem; /* 减小 */
+    }
+
+    p {
+        font-size: 0.9rem; /* 减小 */
+    }
+
+    .subtitle {
+        font-size: 0.9rem; /* 减小副标题 */
+    }
+
+    /* 调整卡片内容字体 */
+    .card-content h3 {
+        font-size: 1rem;
+    }
+
+    .card-content h4 {
+        font-size: 1.3rem;
+    }
+
+    .card-content p {
+        font-size: 0.9rem;
+    }
+
+    /* 调整 token 卡片字体 */
+    .token-details .label {
+        font-size: 0.9rem;
+    }
+
+    .token-details .value {
+        font-size: 2rem;
+    }
+
+    /* CTA 部分字体 */
+    .cta-content h2 {
+        font-size: 2rem;
+    }
+
+    .cta-content p {
+        font-size: 0.9rem;
+    }
+
+    /* Slide 部分修复为上下结构 */
+    .slide {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+        width: 100%;
+    }
+
+    .slide-content,
+    .slide-image {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    .slide-image {
+        margin-top: 2rem;
+        margin-left: 0;
+        width: 100%; /* 重置宽度 */
+    }
+
+    /* Innovation 部分修复为上下结构 */
+    .innovation {
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1rem;
+        gap: 3rem;
+    }
+
+    .innovation-image,
+    .innovation-content {
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Roadmap 卡片修复为单列显示 */
+    .roadmap-cards {
+        display: flex; /* 改为 flex 布局 */
+        flex-direction: column;
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .roadmap-card-wrapper {
+        width: 100%;
+    }
+
+    /* 调整内容边距 */
+    .tokenomics,
+    .roadmap,
+    .cta {
+        padding: 4rem 1rem;
+    }
+
+    /* 调整其他内容宽度 */
+    .hero-content,
+    .features-slider,
+    .tokenomics-content,
+    .roadmap-content,
+    .cta-content {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    /* 修复可能的水平滚动 */
+    .container {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /* 字体大小优化 */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    /* Header 优化 */
+    nav {
+        padding: 1rem;
+    }
+
+    .logo img {
+        height: 32px;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+    }
+
+    /* Slide 改为上下结构 */
+    .slide {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .slide-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .slide-image {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    /* Innovation 部分改为上下结构 */
+    .innovation {
+        flex-direction: column;
+        gap: 3rem;
+    }
+
+    .innovation-image {
+        width: 100%;
+    }
+
+    .innovation-content {
+        width: 100%;
+        text-align: center;
+    }
+
+    .orbit-container {
+        width: 300px; /* 进一步减小容器尺寸 */
+        height: 300px;
+        margin: 0 auto;
+    }
+
+    .inner-orbit {
+        width: 160px;
+        height: 160px;
+    }
+
+    .outer-orbit {
+        width: 260px;
+        height: 260px;
+    }
+
+    /* 调整手机端 icon 位置 */
+    .inner-orbit .orbit-icon:nth-child(1) { transform: rotate(0deg) translateY(-80px); }
+    .inner-orbit .orbit-icon:nth-child(2) { transform: rotate(90deg) translateY(-80px); }
+    .inner-orbit .orbit-icon:nth-child(3) { transform: rotate(180deg) translateY(-80px); }
+    .inner-orbit .orbit-icon:nth-child(4) { transform: rotate(270deg) translateY(-80px); }
+
+    .outer-orbit .orbit-icon:nth-child(1) { transform: rotate(0deg) translateY(-130px); }
+    .outer-orbit .orbit-icon:nth-child(2) { transform: rotate(72deg) translateY(-130px); }
+    .outer-orbit .orbit-icon:nth-child(3) { transform: rotate(144deg) translateY(-130px); }
+    .outer-orbit .orbit-icon:nth-child(4) { transform: rotate(216deg) translateY(-130px); }
+    .outer-orbit .orbit-icon:nth-child(5) { transform: rotate(288deg) translateY(-130px); }
+
+    /* Roadmap 卡片改为上下结构 */
+    .roadmap-cards {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .roadmap-card-wrapper {
+        width: 100%;
+    }
+
+    /* 按钮样式调整 */
+    .btn-primary, .btn-explore {
+        padding: 0.8rem 1.4rem;
+        font-size: 11px;
+    }
+}
+
